@@ -18,7 +18,7 @@ font-family: 'Quicksand', sans-serif; */
   padding: 50px;
 }
 
-.time-controller-container {
+.time-length-container {
   display: flex;
   justify-content: center;
   padding: 20px;
@@ -26,14 +26,15 @@ font-family: 'Quicksand', sans-serif; */
 
 .separator {
   border-right: dashed 1px #ee6f57;
-  margin: 0 8px;
+  margin: 0 18px;
 }
+
 .break-container {
-  margin-right: 10px;
+  margin-right: 8px;
 }
 
 .session-container {
-  margin-left: 10px;
+  margin-left: 8px;
 }
 
 .btn {
@@ -52,6 +53,7 @@ font-family: 'Quicksand', sans-serif; */
 .btn i {
   font-size: 2.4rem;
   color: #ee6f57;
+  padding: 2.5px;
 }
 
 .length {
@@ -63,15 +65,18 @@ font-family: 'Quicksand', sans-serif; */
 .counter-container {
   max-width: 260px;
   margin: 0 auto;
-  border: solid 6px #00334e;
-  border-radius: 12px;
-  margin-bottom: 10px;
+  border: solid 8px #00334e;
+  border-radius: 18px;
+  margin-bottom: 25px;
 }
 
 .session {
-  padding: 8px;
-  border-bottom: solid 1px #00334e;
+  width: 100%;
+  padding: 11px 0px;
   color: #ee6f57;
+  background-color: #00334e;
+  box-sizing: content-box;
+  font-size: 1.8rem;
 }
 
 .time {
@@ -119,5 +124,12 @@ font-family: 'Quicksand', sans-serif; */
 @media screen and (max-width: 600px) {
   .header {
     padding: 15px;
+  }
+}
+
+@media screen and (max-width: 400px) {
+  .btn i {
+    padding: 1px;
+    font-size: 2.15rem;
   }
 }
