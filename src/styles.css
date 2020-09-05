@@ -4,7 +4,120 @@
   box-sizing: border-box;
 }
 
+/* font-family: 'Montserrat', sans-serif;
+font-family: 'Quicksand', sans-serif; */
 .App {
-  font-family: sans-serif;
+  font-family: "Montserrat", sans-serif;
   text-align: center;
+  background-color: #145374;
+  color: #f6f5f5;
+  min-height: 100vh;
+}
+
+.header {
+  padding: 50px;
+}
+
+.time-controller-container {
+  display: flex;
+  justify-content: center;
+  padding: 20px;
+}
+
+.separator {
+  border-right: dashed 1px #ee6f57;
+  margin: 0 8px;
+}
+.break-container {
+  margin-right: 10px;
+}
+
+.session-container {
+  margin-left: 10px;
+}
+
+.btn {
+  font-family: "Quicksand", sans-serif;
+  background: none;
+  outline: none;
+  border: none;
+}
+
+.btn:hover,
+.btn:active {
+  outline: none;
+  cursor: pointer;
+}
+
+.btn i {
+  font-size: 2.4rem;
+  color: #ee6f57;
+}
+
+.length {
+  display: inline-block;
+  padding: 10px;
+  font-size: 2.5rem;
+}
+
+.counter-container {
+  max-width: 260px;
+  margin: 0 auto;
+  border: solid 6px #00334e;
+  border-radius: 12px;
+  margin-bottom: 10px;
+}
+
+.session {
+  padding: 8px;
+  border-bottom: solid 1px #00334e;
+  color: #ee6f57;
+}
+
+.time {
+  padding: 15px;
+  font-size: 2.8rem;
+}
+
+.controller-container {
+  display: flex;
+  justify-content: center;
+  padding: 15px;
+  font-size: 2rem;
+}
+
+.controller {
+  padding: 12px;
+  border: 1px solid #ee6f57;
+  border-radius: 10px;
+  transition: all 0.3s ease-in;
+}
+
+.start-stop {
+  margin-right: 20px;
+}
+
+.reset {
+  margin-left: 20px;
+}
+
+.controller:hover {
+  cursor: pointer;
+  background-color: #ee6f57;
+  color: #00334e;
+}
+
+.footer {
+  border-top: 1px solid #ee6f57;
+  padding: 15px;
+  width: 100%;
+  position: absolute;
+  bottom: 0;
+  margin-top: 30px;
+}
+
+@media screen and (max-width: 600px) {
+  .header {
+    padding: 15px;
+  }
 }
