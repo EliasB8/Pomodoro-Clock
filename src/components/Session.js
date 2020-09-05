@@ -7,7 +7,7 @@ function Session(props) {
         Session
       </h2>
       <p className="time" id="time-left">
-        25:00
+        {props.time ? props.time : "25:00"}
       </p>
     </div>
   );
