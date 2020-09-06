@@ -84,9 +84,6 @@ class Main extends React.Component {
               : "0" + Math.floor(totalTime / 60),
           second: totalTime % 60 >= 10 ? totalTime % 60 : "0" + (totalTime % 60)
         }));
-        if (totalTime === 0) {
-          let breakTime = Number(this.state.breakLength) * 60;
-        }
       }, 1000);
     } else {
       console.log("cleared");
