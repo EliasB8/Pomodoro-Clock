@@ -8,7 +8,7 @@ function TimeLengthController(props) {
         <button
           className="btn btn-break"
           id="break-increment"
-          onClick={props.hadleBreakIncrement}
+          onClick={props.handleBreakIncrement}
         >
           <i className="fas fa-plus-circle"></i>
         </button>
@@ -18,7 +18,7 @@ function TimeLengthController(props) {
         <button
           className="btn btn-break"
           id="break-decrement"
-          onClick={props.hadleBreakDecrement}
+          onClick={props.handleBreakDecrement}
         >
           <i className="fas fa-minus-circle"></i>
         </button>
@@ -29,7 +29,7 @@ function TimeLengthController(props) {
         <button
           className="btn btn-session"
           id="session-increment"
-          onClick={props.hadleSessionIncrement}
+          onClick={props.handleSessionIncrement}
         >
           <i className="fas fa-plus-circle"></i>
         </button>
@@ -39,7 +39,7 @@ function TimeLengthController(props) {
         <button
           className="btn btn-session"
           id="session-decrement"
-          onClick={props.hadleSessionDecrement}
+          onClick={props.handleSessionDecrement}
         >
           <i className="fas fa-minus-circle"></i>
         </button>

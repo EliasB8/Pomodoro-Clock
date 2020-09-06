@@ -6,7 +6,7 @@ function Controller(props) {
       <div
         id="start_stop"
         className="controller start-stop"
-        onClick={props.hadleStartStop}
+        onClick={props.handleStartStop}
       >
         <i className="fas fa-play"></i>
         <i className="fas fa-pause"></i>
