@@ -3,6 +3,11 @@ import TimeLengthController from "./TimeLengthController";
 import Session from "./Session";
 import Controller from "./Controller";
 let counter;
+
+// {
+//   /* <audio id="beep" preload="auto" src="https://raw.githubusercontent.com/freeCodeCamp/cdn/master/build/testable-projects-fcc/audio/BeepSound.wav"></audio> */
+// }
+
 class Main extends React.Component {
   constructor(props) {
     super(props);
