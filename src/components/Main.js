@@ -2,11 +2,6 @@ import React from "react";
 import TimeLengthController from "./TimeLengthController";
 import Session from "./Session";
 import Controller from "./Controller";
-let counter;
-
-// {
-//   /* <audio id="beep" preload="auto" src="https://raw.githubusercontent.com/freeCodeCamp/cdn/master/build/testable-projects-fcc/audio/BeepSound.wav"></audio> */
-// }
 
 class Main extends React.Component {
   constructor(props) {
@@ -14,9 +9,11 @@ class Main extends React.Component {
     this.state = {
       breakLength: 5,
       sessionLength: 25,
-      counting: false,
-      minute: "25",
-      second: "00"
+      isSession: true,
+      minute: 25,
+      second: 0,
+      intervalId: 0,
+      isPlay: false
     };
     this.handleBreakIncrement = this.handleBreakIncrement.bind(this);
     this.handleBreakDecrement = this.handleBreakDecrement.bind(this);
@@ -24,8 +21,10 @@ class Main extends React.Component {
     this.handleSessionDecrement = this.handleSessionDecrement.bind(this);
     this.handleStartStop = this.handleStartStop.bind(this);
     this.handleReset = this.handleReset.bind(this);
-    this.checkMinValue = this.checkMinValue.bind(this);
-    this.checkMaxValue = this.checkMaxValue.bind(this);
+    this.toggleType = this.toggleType.bind(this);
+    this.playTimer = this.playTimer.bind(this);
+    this.pauseTimer = this.pauseTimer.bind(this);
+    this.decreaseTimer = this.decreaseTimer.bind(this);
   }
 
   checkMinValue(value) {
@@ -65,45 +64,102 @@ class Main extends React.Component {
     if (this.checkMinValue(this.state.sessionLength) && !this.state.counting) {
       this.setState((state) => ({
         sessionLength: state.sessionLength - 1,
-        minute:
-          Number(state.minute) > 10
-            ? Number(state.minute) - 1
-            : "0" + (Number(state.minute) - 1)
+        minute: state.minute - 1
       }));
     }
   }
 
-  handleStartStop() {
-    this.setState((state) => ({
-      counting: !state.counting
-    }));
-    if (!this.state.counting) {
-      let totalTime =
-        Number(this.state.minute) * 60 + Number(this.state.second);
-      counter = setInterval(() => {
-        totalTime--;
-        this.setState((state) => ({
-          minute:
-            Math.floor(totalTime / 60) >= 10
-              ? Math.floor(totalTime / 60)
-              : "0" + Math.floor(totalTime / 60),
-          second: totalTime % 60 >= 10 ? totalTime % 60 : "0" + (totalTime % 60)
-        }));
-      }, 1000);
+  toggleType(session) {
+    if (session) {
+      this.setState((state) => ({
+        minute: state.sessionLength
+      }));
     } else {
-      console.log("cleared");
-      clearInterval(counter);
+      this.setState((state) => ({
+        minute: state.breakLength
+      }));
+    }
+    let playPromise = document.getElementById("beep").play();
+    if (playPromise !== undefined) {
+      playPromise
+        .then((_) => {
+          // Automatic playback started!
+          // Show playing UI.
+          console.log("audio played auto");
+        })
+        .catch((error) => {
+          // Auto-play was prevented
+          // Show paused UI.
+          console.log("playback prevented");
+        });
+    }
+  }
+
+  handleStartStop() {
+    this.setState(
+      (state) => ({
+        isPlay: !state.isPlay
+      }),
+      () => {
+        this.state.isPlay ? this.playTimer() : this.pauseTimer();
+      }
+    );
+  }
+
+  playTimer() {
+    let intervalId = setInterval(this.decreaseTimer, 1000);
+
+    this.setState({
+      intervalId: intervalId
+    });
+  }
+
+  pauseTimer() {
+    clearInterval(this.state.intervalId);
+  }
+
+  decreaseTimer() {
+    switch (this.state.second) {
+      case 0:
+        if (this.state.minute === 0) {
+          if (this.state.isSession) {
+            this.setState({
+              isSession: false
+            });
+            this.toggleType(this.state.isSession);
+          } else {
+            this.setState({
+              isSession: true
+            });
+            this.toggleType(this.state.isSession);
+          }
+        } else {
+          this.setState((state) => ({
+            second: 59,
+            minute: state.minute - 1
+          }));
+        }
+        break;
+      default:
+        this.setState((state) => ({
+          second: state.second - 1
+        }));
     }
   }
 
   handleReset() {
+    this.pauseTimer();
     this.setState({
       breakLength: 5,
       sessionLength: 25,
-      start: false,
-      minute: "25",
-      second: "00"
+      isSession: true,
+      minute: 25,
+      second: 0,
+      intervalId: 0,
+      isPlay: false
     });
+    document.getElementById("beep").pause();
+    document.getElementById("beep").currentTime = 0;
   }
 
   render() {
@@ -117,7 +173,11 @@ class Main extends React.Component {
           handleSessionDecrement={this.handleSessionDecrement}
           handleSessionIncrement={this.handleSessionIncrement}
         />
-        <Session time={this.state.minute + ":" + this.state.second} />
+        <Session
+          isSession={this.state.isSession}
+          minute={this.state.minute}
+          second={this.state.second}
+        />
         <Controller
           handleStartStop={this.handleStartStop}
           handleReset={this.handleReset}
