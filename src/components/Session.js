@@ -1,6 +1,7 @@
 import React from "react";
 
 function Session(props) {
+  // Setting red color
   let color = {};
   if (props.minute === 0) {
     color = {
