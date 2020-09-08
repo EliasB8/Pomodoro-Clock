@@ -83,13 +83,9 @@ class Main extends React.Component {
     if (playPromise !== undefined) {
       playPromise
         .then((_) => {
-          // Automatic playback started!
-          // Show playing UI.
           console.log("audio played auto");
         })
         .catch((error) => {
-          // Auto-play was prevented
-          // Show paused UI.
           console.log("playback prevented");
         });
     }
