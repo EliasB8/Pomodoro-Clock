@@ -6,6 +6,8 @@ import Controller from "./Controller";
 class Main extends React.Component {
   constructor(props) {
     super(props);
+
+    // Initializing state
     this.state = {
       breakLength: 5,
       sessionLength: 25,
@@ -15,6 +17,8 @@ class Main extends React.Component {
       intervalId: 0,
       isPlay: false
     };
+
+    // Binding function that will use the state
     this.handleBreakIncrement = this.handleBreakIncrement.bind(this);
     this.handleBreakDecrement = this.handleBreakDecrement.bind(this);
     this.handleSessionIncrement = this.handleSessionIncrement.bind(this);
@@ -27,32 +31,37 @@ class Main extends React.Component {
     this.decreaseTimer = this.decreaseTimer.bind(this);
   }
 
+  // check if break or session time is not less than 1
   checkMinValue(value) {
     return value > 1 ? true : false;
   }
 
+  // check if break or session time is not greater than 60
   checkMaxValue(value) {
     return value <= 59 ? true : false;
   }
 
+  // Incrementing break time after checking it is not playing and max value
   handleBreakIncrement() {
-    if (this.checkMaxValue(this.state.breakLength) && !this.state.counting) {
+    if (this.checkMaxValue(this.state.breakLength) && !this.state.isPlay) {
       this.setState((state) => ({
         breakLength: state.breakLength + 1
       }));
     }
   }
 
+  // Decrementing break time after checking it is not playing and min value
   handleBreakDecrement() {
-    if (this.checkMinValue(this.state.breakLength) && !this.state.counting) {
+    if (this.checkMinValue(this.state.breakLength) && !this.state.isPlay) {
       this.setState((state) => ({
         breakLength: state.breakLength - 1
       }));
     }
   }
 
+  // Incrementing session time after checking it is not playing and max value
   handleSessionIncrement() {
-    if (this.checkMaxValue(this.state.sessionLength) && !this.state.counting) {
+    if (this.checkMaxValue(this.state.sessionLength) && !this.state.isPlay) {
       this.setState((state) => ({
         sessionLength: state.sessionLength + 1,
         minute: Number(state.minute) + 1
@@ -60,8 +69,9 @@ class Main extends React.Component {
     }
   }
 
+  // Decrementing session time after checking it is not playing and min value
   handleSessionDecrement() {
-    if (this.checkMinValue(this.state.sessionLength) && !this.state.counting) {
+    if (this.checkMinValue(this.state.sessionLength) && !this.state.isPlay) {
       this.setState((state) => ({
         sessionLength: state.sessionLength - 1,
         minute: state.minute - 1
@@ -69,6 +79,7 @@ class Main extends React.Component {
     }
   }
 
+  // Toggling between break and session
   toggleType(session) {
     if (session) {
       this.setState((state) => ({
@@ -79,6 +90,8 @@ class Main extends React.Component {
         minute: state.breakLength
       }));
     }
+
+    // Checking for the play promise for errors happening in chrome
     let playPromise = document.getElementById("beep").play();
     if (playPromise !== undefined) {
       playPromise
@@ -91,6 +104,7 @@ class Main extends React.Component {
     }
   }
 
+  // Checking play pause and calling respective function
   handleStartStop() {
     this.setState(
       (state) => ({
@@ -102,6 +116,7 @@ class Main extends React.Component {
     );
   }
 
+  // Playing the counter
   playTimer() {
     let intervalId = setInterval(this.decreaseTimer, 1000);
 
@@ -110,10 +125,12 @@ class Main extends React.Component {
     });
   }
 
+  // Pausing the interval
   pauseTimer() {
     clearInterval(this.state.intervalId);
   }
 
+  // Decreasing timer every second for the second and every 0 second the minute
   decreaseTimer() {
     switch (this.state.second) {
       case 0:
@@ -143,6 +160,7 @@ class Main extends React.Component {
     }
   }
 
+  // Resetting the clock to the default
   handleReset() {
     this.pauseTimer();
     this.setState({
